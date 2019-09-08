@@ -1,6 +1,10 @@
 /* Copyright (c) Colorado School of Mines, 2013.*/
 /* All rights reserved.                       */
 
+#ifndef CS_POSITIONING_H
+#define CS_POSITIONING_H
+
+namespace cseis_geolib {
 struct PosParam {
 public:
 PosParam() : x(0), y(0), z(0), t(0), v(0) {}

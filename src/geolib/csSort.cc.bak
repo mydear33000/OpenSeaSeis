@@ -182,6 +182,3 @@ template<typename T> inline bool csSortItem<T>::operator<( const csSortItem& obj
 }
 
 
-} // end namespace
-#endif
-
