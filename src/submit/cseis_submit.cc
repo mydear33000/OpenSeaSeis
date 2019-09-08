@@ -6,6 +6,7 @@
 #include <stdarg.h>
 #include <iostream>
 #include <string>
+#include <dlfcn.h>
 
 #include "cseis_defines.h"
 #include "csTrace.h"
