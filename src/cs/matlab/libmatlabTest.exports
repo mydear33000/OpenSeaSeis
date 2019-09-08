@@ -1,6 +1,0 @@
-libmatlabTestInitialize
-libmatlabTestInitializeWithHandlers
-libmatlabTestTerminate
-libmatlabTestPrintStackTrace
-mlxMatlabTest
-mlfMatlabTest
