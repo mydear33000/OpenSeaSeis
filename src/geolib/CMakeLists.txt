@@ -2,7 +2,7 @@ FILE(GLOB_RECURSE CPP_SRCS *.cc)
 
 ADD_LIBRARY(as_geolib SHARED ${CPP_SRCS})
 
-LIST(APPEND OpenSeaSeis_LINKER_LIBS as_geolib)
+SET(OpenSeaSeis_LINKER_LIBS as_geolib ${OpenSeaSeis_LINKER_LIBS} PARENT_SCOPE)
 
 INSTALL( TARGETS as_geolib
          LIBRARY DESTINATION lib

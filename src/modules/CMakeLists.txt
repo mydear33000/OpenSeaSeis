@@ -1,0 +1,10 @@
+FIND_PACKAGE(OpenCV REQUIRED)
+FILE(GLOB_RECURSE srcs ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+FOREACH(source ${srcs})
+    GET_FILENAME_COMPONENT(name ${source} NAME_WE)
+    SET(name ${name}.bin)
+    ADD_EXECUTABLE(${name} ${source})
+    TARGET_LINK_LIBRARIES(${name}  fverify ${OpenCV_LIBS})
+    INSTALL(TARGETS ${name} DESTINATION bin)
+ENDFOREACH()
+
