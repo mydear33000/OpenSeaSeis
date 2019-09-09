@@ -1,0 +1,30 @@
+# --[ omp
+if(BUILD_OPENMP)
+    find_package(OpenMP)
+    if(OpenMP_CXX_FOUND OR OPENMP_FOUND)
+        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+    endif()
+endif()
+
+# --[ pthread
+FIND_PACKAGE(Threads REQUIRED)
+LIST(APPEND OpenSeaSeis_LINKER_LIBS ${CMAKE_THREAD_LIBS_INIT})
+
+# --[ Boost
+if(NOT ANDROID_API)
+  FIND_PACKAGE(Boost REQUIRED system thread filesystem)
+endif()
+LIST(APPEND OpenSeaSeis_INCLUDE_DIR ${Boost_INCLUDE_DIR})
+LIST(APPEND OpenSeaSeis_LINKER_LIBS ${Boost_LIBRARIES})
+
+# ---[ Google-glog
+FIND_PACKAGE(Glog)
+LIST(APPEND OpenSeaSeis_INCLUDE_DIR ${GLOG_INCLUDE_DIRS})
+LIST(APPEND OpenSeaSeis_LINKER_LIBS ${GLOG_LIBRARIES})
+
+# ---[ Google-gflags
+FIND_PACKAGE(GFlags)
+LIST(APPEND OpenSeaSeis_INCLUDE_DIR ${GFLAGS_INCLUDE_DIRS})
+LIST(APPEND OpenSeaSeis_LINKER_LIBS ${GFLAGS_LIBRARIES})
+

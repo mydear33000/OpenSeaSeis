@@ -356,7 +356,6 @@ bool csFileUtils::retrieveFileDir_internal( std::string const& directory,
   return true;
 
 }
-
 bool csFileUtils::createDirectory( std::string const& directory ) {
   struct stat entryInfo;
   if( stat( directory.c_str(), &entryInfo ) == 0 ) {
@@ -435,7 +434,6 @@ bool csFileUtils::seekg_relative( csInt64_t bytePosRelative, std::ifstream* file
   
   return true;
 }
-
 bool csFileUtils::fileExists( std::string const& filename ) {
   FILE* ftest = fopen( filename.c_str(), "r" );
   if( ftest == NULL ) { // File does not exist

@@ -32,7 +32,7 @@ void csMethodRetriever::getParamInitMethod( std::string const& name, int verMajo
   
   char* soName     = new char[200];
   char const* ptr  = nameLower.c_str();
-  sprintf(soName,"libmod_%s.so.%d.%d",ptr,verMajor,verMinor);
+  sprintf(soName,"libas_%s.so.%d.%d",ptr,verMajor,verMinor);
 
   void* handle = dlopen( soName, RTLD_LAZY );
   const char *dlopen_error = dlerror();
@@ -68,21 +68,21 @@ MParamPtr csMethodRetriever::getParamMethod( std::string const& name ) {
   std::string nameLower = cseis_geolib::toLowerCase( name );
   char* soName     = new char[200];
   char const* ptr  = nameLower.c_str();
-  sprintf(soName,"libmod_%s.so",ptr);
+  sprintf(soName,"libas_%s.so",ptr);
   return getParamMethod( nameLower, soName );
 }
 MParamPtr csMethodRetriever::getParamMethod( std::string const& name, int verMajor, int verMinor ) {
   std::string nameLower = cseis_geolib::toLowerCase( name );
   char* soName     = new char[200];
   char const* ptr  = nameLower.c_str();
-  sprintf(soName,"libmod_%s.so.%d.%d",ptr,verMajor,verMinor);
+  sprintf(soName,"libas_%s.so.%d.%d",ptr,verMajor,verMinor);
   return getParamMethod( nameLower, soName );
 }
 MParamPtr csMethodRetriever::getParamMethod( std::string const& name, std::string versionString ) {
   std::string nameLower = cseis_geolib::toLowerCase( name );
   char* soName     = new char[200];
   char const* ptr  = nameLower.c_str();
-  sprintf(soName,"libmod_%s.so.%s",ptr,versionString.c_str());
+  sprintf(soName,"libas_%s.so.%s",ptr,versionString.c_str());
   return getParamMethod( nameLower, soName );
 }
 //----------------------------------------------------------------------------
@@ -132,7 +132,7 @@ void csMethodRetriever::getExecMethodSingleTrace( std::string const& name, int v
 
   char* soName     = new char[200];
   char const* ptr  = nameLower.c_str();
-  sprintf(soName,"libmod_%s.so.%d.%d",ptr,verMajor,verMinor);
+  sprintf(soName,"libas_%s.so.%d.%d",ptr,verMajor,verMinor);
 
   void* handle = dlopen( soName, RTLD_LAZY );
   const char *dlopen_error = dlerror();
@@ -156,7 +156,7 @@ void csMethodRetriever::getExecMethodMultiTrace( std::string const& name, int ve
 
   char* soName     = new char[200];
   char const* ptr  = nameLower.c_str();
-  sprintf(soName,"libmod_%s.so.%d.%d",ptr,verMajor,verMinor);
+  sprintf(soName,"libas_%s.so.%d.%d",ptr,verMajor,verMinor);
 
   void* handle = dlopen( soName, RTLD_LAZY );
   const char *dlopen_error = dlerror();

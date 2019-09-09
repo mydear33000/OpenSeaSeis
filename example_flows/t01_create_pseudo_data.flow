@@ -24,11 +24,6 @@ $STACK
  norm   0.0
 
 $OUTPUT
- filename    data/t01_pseudo_data.cseis
+ filename    ./t01_pseudo_data.cseis
 
-$FFT
- output amp   # Output amplitude spectrum
-
-$OUTPUT
- filename    data/t01_pseudo_data_spectrum.cseis
 

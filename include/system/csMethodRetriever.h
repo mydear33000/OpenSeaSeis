@@ -70,7 +70,6 @@ public:
   csMethodRetriever();
   ~csMethodRetriever();  
 };
-
 } // namespace
 #endif
 
