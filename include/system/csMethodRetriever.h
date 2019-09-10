@@ -5,7 +5,10 @@
 #define CS_METHOD_RETRIEVER_H
 
 #include "cseis_defines.h"
+#include <boost/shared_ptr.hpp>
 #include <string>
+
+#define ASMethodRetriever() csMethodRetriever::MethodRetriever()
 
 namespace cseis_geolib {
   template<typename T> class csVector;
@@ -13,6 +16,8 @@ namespace cseis_geolib {
 
 namespace cseis_system {
 
+
+class csModuleLists;
 /**
 * Retrieval of module methods
 * Use static member function of this class to retrieve function pointers to the standard methods of Cseis processing modules
@@ -22,6 +27,10 @@ namespace cseis_system {
 */
 class csMethodRetriever {
 public:
+    csMethodRetriever();
+    ~csMethodRetriever();
+
+    void init();
   /**
   * Retrieve function pointer to parameter method
   * @param name (i) Module name whose method shall be retrieved
@@ -56,6 +65,12 @@ public:
   */
   static std::string const* getStandardModuleNames();
 
+  /// friend extern csMethodRetriever& MethodRetriever();
+  static csMethodRetriever*	theinst_;
+  static csMethodRetriever& MethodRetriever();
+
+  bool isOk(){return isOk_;}
+
  private:
   static MParamPtr getParamMethod( std::string const& name, void* handle );
   static MInitPtr  getInitMethod( std::string const& name, void* handle );
@@ -65,10 +80,10 @@ public:
   static int getMethodIndex( std::string const& name );
   static int const METHOD_NOT_FOUND = -33;
 
-  static MParamPtr getParamMethod( std::string const& name, char const* soName );
+  static MParamPtr getParamMethod( std::string const& name, char const* soName );    
 
-  csMethodRetriever();
-  ~csMethodRetriever();  
+  boost::shared_ptr<csModuleLists> modulelists_;
+  bool isOk_;
 };
 } // namespace
 #endif

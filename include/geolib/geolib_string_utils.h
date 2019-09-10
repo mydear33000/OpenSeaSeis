@@ -41,7 +41,7 @@ namespace {
   static char const BRACKET_SQ_OPEN_CHAR = '[';
   static char const BRACKET_SQ_CLOSE_CHAR = ']';
   static char const STAR_CHAR = '*';
-  static char const MODULEPREFIX = 'libas_';
+  static char const MODULEPREFIX[] = "libas_";
 }
 
 namespace cseis_geolib {

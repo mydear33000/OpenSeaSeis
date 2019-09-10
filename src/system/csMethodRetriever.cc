@@ -8,25 +8,64 @@
 #include "csException.h"
 #include "csVector.h"
 #include "geolib_string_utils.h"
+#include "csModuleLists.h"
 #include "geolib_platform_dependent.h"
 
-#ifdef PLATFORM_WINDOWS
-#include "cseis_modules_all.h"
-#elif PLATFORM_SOLARIS
-#include "cseis_modules_all.h"
-#elif PLATFORM_LINUX
 #include "cseis_modules.h"
 #include <dlfcn.h>
-#elif PLATFORM_APPLE
-#include "cseis_modules.h"
-#include <dlfcn.h>
-#endif
 
 using namespace cseis_system;
+using namespace cseis_geolib;
 
-#if defined(PLATFORM_LINUX) || defined(PLATFORM_APPLE)
-//----------------------------------------------------------
-//
+csMethodRetriever* csMethodRetriever::theinst_ = 0;
+
+csMethodRetriever& csMethodRetriever::MethodRetriever(){
+    if(!csMethodRetriever::theinst_){
+        csMethodRetriever::theinst_ = new csMethodRetriever();
+    }
+
+    return *csMethodRetriever::theinst_;
+}
+
+csMethodRetriever::csMethodRetriever()
+    : isOk_(false)
+{
+    init();
+}
+csMethodRetriever::~csMethodRetriever(){
+
+}
+void csMethodRetriever::init(){
+    /*m_isOk = false;
+
+    m_mlfnm = GetASModelListFileName();
+
+    if(!File::exists(m_mlfnm.c_str())){
+        m_errInfo.assign("Can't find file [");
+        m_errInfo.append(m_mlfnm.c_str());
+        m_errInfo.append("] !");
+        return;
+    }
+
+    if(!m_modules.read(m_mlfnm.c_str(), NULL)){
+        m_errInfo.assign("Load file [");
+        m_errInfo.append(m_mlfnm.c_str());
+        m_errInfo.append("] fails!");
+        return;
+    }
+
+    m_nmodels = 0;
+    for(int imodel = 0; imodel < m_modules.size(); imodel++){
+        if(    (m_modules.getValue(imodel) == "EXE_SINGLE_TRACE")
+            || (m_modules.getValue(imodel) == "EXE_MULTIE_TRACE")
+            || (m_modules.getValue(imodel) == "EXE_FILE")
+            || (m_modules.getValue(imodel) == "EXEC_TYPE_INPUT"))
+            m_mnames[m_nmodels++] = m_modules.getKey(imodel).str();
+    }
+
+    m_isOk = true;*/
+}
+
 void csMethodRetriever::getParamInitMethod( std::string const& name, int verMajor, int verMinor, MParamPtr& param, MInitPtr& init ) {
   std::string nameLower = cseis_geolib::toLowerCase( name );
   
@@ -213,7 +252,6 @@ MExecMultiTracePtr csMethodRetriever::getExecMethodMultiTrace( std::string const
   return method;
 }
 
-#endif
 
 //--------------------------------------------------------------------
 //
@@ -226,56 +264,4 @@ std::string const* csMethodRetriever::getStandardModuleNames() {
   return NAMES;
 }
 
-#ifdef PLATFORM_WINDOWS
-
-//----------------------------------------------------------
-//
-void csMethodRetriever::getParamInitMethod( std::string const& name, int verMajor, int verMinor, MParamPtr& param, MInitPtr& init ) {
-  int index = getMethodIndex( name );
-  if( index >= 0 ) {
-    init  = METHODS_INIT[index];
-    param = METHODS_PARAM[index];
-  }
-}
-//----------------------------------------------------------------------------
-//
-MParamPtr csMethodRetriever::getParamMethod( std::string const& name, std::string versionString ) {
-  return csMethodRetriever::getParamMethod( name );
-}
-MParamPtr csMethodRetriever::getParamMethod( std::string const& name ) {
-  int index = getMethodIndex( name );
-  if( index >= 0 ) {
-    return METHODS_PARAM[index];
-  }
-  else {
-    return NULL;
-  }
-}
-//--------------------------------------------------------------------
-//
-void csMethodRetriever::getExecMethodSingleTrace( std::string const& name, int verMajor, int verMinor, MExecSingleTracePtr& exec ) {
-  int index = getMethodIndex( name );
-  if( index >= 0 ) {
-    exec = METHODS_EXEC_SINGLE[index];
-  }
-}
-//----------------------------------------------------------
-//
-void csMethodRetriever::getExecMethodMultiTrace( std::string const& name, int verMajor, int verMinor, MExecMultiTracePtr& exec ) {
-  int index = getMethodIndex( name );
-  if( index >= 0 ) {
-    exec = METHODS_EXEC_MULTI[index];
-  }
-}
-//--------------------------------------------------------------------
-//
-int csMethodRetriever::getMethodIndex( std::string const& name ) {
-  for( int i = 0; i < N_METHODS; i++ ) {
-    if( !name.compare(NAMES[i]) ) {
-      return i;
-    }
-  }
-  return METHOD_NOT_FOUND;
-}
-#endif
 

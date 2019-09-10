@@ -28,6 +28,8 @@ namespace cseis_geolib {
   public:
     csFileUtils();
     ~csFileUtils();
+    static std::string GetASModelListFileName();
+    static std::string GetASHomeDir();
     static csInt64_t retrieveFileSize( std::string const& filename );
     static bool retrieveFileInfo( std::string const& filename, csInt64_t* fileSize, int* timeStamp_s );
     /**

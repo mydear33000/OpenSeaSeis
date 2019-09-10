@@ -26,16 +26,13 @@ csFileUtils::csFileUtils() {
 }
 csFileUtils::~csFileUtils() {
 }
-
 csInt64_t csFileUtils::retrieveFileSize( std::string const& filename ) {
   return determineFileSize( filename );
 }
-
 bool csFileUtils::retrieveTimeStamp( std::string const& filename, int* timeStamp_s ) {
   csInt64_t fileSize;
   return csFileUtils::retrieveFileInfo( filename, &fileSize, timeStamp_s );
 }
-
 bool csFileUtils::retrieveFileInfo( std::string const& filename, csInt64_t* fileSize, int* timeStamp_s ) {
 #ifdef PLATFORM_WINDOWS
   struct _stati64 statField;
@@ -128,7 +125,6 @@ bool csFileUtils::retrieveFileInfo( std::string const& filename, csInt64_t* file
 #endif
   return true;
 }
-
 csInt64_t csFileUtils::determineFileSize( std::string const& filename ) {
   csInt64_t fileSize = 0;
 #ifdef PLATFORM_WINDOWS
